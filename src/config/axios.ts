@@ -23,21 +23,4 @@ client.interceptors.request.use(
     (error) => error
 );
 
-client.interceptors.response.use(
-    (res) => {
-        const { status, data } = res;
-        // if (status === 401 || data?.status === 401) {
-        //     Utils.Logout();
-        //     window.location.reload();
-        // }
-        return res;
-    },
-    (error) =>
-        // if (error.response?.status === 401) {
-        //     Utils.Logout();
-        //     window.location.reload();
-        // }
-        error
-);
-
 export default client;

@@ -49,7 +49,7 @@
   
 @layer base {
     body {
-        @apply hover-animation bg-primary font-twitter-chirp;
+        @apply hover-animation font-twitter-chirp;
     }
 }
 
@@ -59,3 +59,7 @@
     }
 }
   
+::-webkit-scrollbar {
+  width: 0;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}

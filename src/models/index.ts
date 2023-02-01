@@ -1,5 +1,6 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { ThunkDispatch, ThunkAction, AnyAction } from "@reduxjs/toolkit";
+import { LoginResponse, User } from "./response";
 
 export * from "./response";
 export * from "./request";

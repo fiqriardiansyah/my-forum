@@ -15,6 +15,7 @@ import {
 } from "models";
 import { DEFAULT_ERROR_MESSAGE } from "utils/constant";
 import message from "antd/es/message";
+import Utils from "utils";
 import methods from "./methods";
 
 const endPoints = {
@@ -142,7 +143,7 @@ const endPoints = {
     Users<T extends { users: User[] }>() {
         return this.ProxyRequest<T>(async () => {
             const req = await methods.get<T>({
-                url: this.login,
+                url: this.users,
             });
             return req;
         });
@@ -174,6 +175,10 @@ const endPoints = {
             const status = req.data?.status;
             if (status !== "success") {
                 const msg = req.data?.message || DEFAULT_ERROR_MESSAGE;
+                setTimeout(() => {
+                    Utils.Logout();
+                    window.location.reload();
+                }, 300);
                 throw new Error(msg);
             }
             return req;

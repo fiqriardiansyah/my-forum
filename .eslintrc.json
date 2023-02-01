@@ -27,7 +27,9 @@
         "import/extensions": "off",
         "no-shadow": "off",
         "import/no-extraneous-dependencies": "off",
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "no-empty": "off",
+        "no-case-declarations": "off"
     },
     "settings": {
         "import/resolver": {
