@@ -40,6 +40,30 @@ function threadsReducer(state: SelectorThreads | null = null, action: any = {}) 
                           }
                 ),
             };
+        case ActionType.SUCCESS_COMMENT:
+            return {
+                ...state,
+                threads: [...(state?.threads || [])].map((th) =>
+                    th.id !== threadId
+                        ? th
+                        : {
+                              ...th,
+                              totalComments: (th.totalComments || 0) + 1,
+                          }
+                ),
+            };
+        case ActionType.FAIL_COMMENT:
+            return {
+                ...state,
+                threads: [...(state?.threads || [])].map((th) =>
+                    th.id !== threadId
+                        ? th
+                        : {
+                              ...th,
+                              totalComments: (th.totalComments || 0) - 1,
+                          }
+                ),
+            };
         default:
             return state;
     }

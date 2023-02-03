@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import Header from "components/header";
+import Header from "components/layout/header";
 import { useDispatch, useSelector } from "react-redux";
 import { ReducerType } from "states";
 import { asyncGetThreads } from "states/threads/action";
 import { asyncGetUsers } from "states/users/action";
 import Thread from "components/thread";
+import Speak from "components/speak";
 
 function Home() {
     const state = useSelector<ReducerType, ReducerType>((state) => state);
@@ -16,12 +17,13 @@ function Home() {
     }, []);
 
     return (
-        <div className="w-full h-screen overflow-y-auto relative">
+        <>
             <Header title="Home" />
+            <Speak />
             {state.threads?.threads?.map((thread) => (
                 <Thread key={thread.id} thread={thread} />
             ))}
-        </div>
+        </>
     );
 }
 

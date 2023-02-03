@@ -1,13 +1,15 @@
 import { RiHome7Fill, RiHome7Line } from "react-icons/ri";
 import { BsThreeDots } from "react-icons/bs";
 import LogoPrimary from "assets/svgs/logo-primary.svg";
-import SideLink from "components/side-link";
+import SideLink from "components/button/side-link";
 import { MdOutlineLeaderboard, MdLeaderboard } from "react-icons/md";
+import { HiUser, HiOutlineUser, HiOutlineHashtag } from "react-icons/hi";
+import { FaHashtag } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { ReducerType } from "states";
 import { Popover, Skeleton } from "antd";
 import { doLogout } from "states/users/action";
-import { LEADERBOARDS } from "utils/routes";
+import { EXPLORE, LEADERBOARDS, PROFILE } from "utils/routes";
 import { SelectorUser } from "states/users/reducer";
 
 function Sidebar() {
@@ -27,8 +29,8 @@ function Sidebar() {
     );
     return (
         <div className="w-[300px] min-h-screen p-4 flex flex-col items-start justify-between" style={{ borderRight: "1px solid rgb(229 231 235)" }}>
-            <div className="flex flex-col items-start gap-4">
-                <img src={LogoPrimary} className="h-10 mb-8" alt="myforum" />
+            <div className="flex flex-col items-start gap-1">
+                <img src={LogoPrimary} className="h-10 mb-8 ml-4" alt="myforum" />
                 <SideLink
                     text="Home"
                     to="/"
@@ -36,10 +38,22 @@ function Sidebar() {
                     inActiveIcon={<RiHome7Line className="text-3xl mr-4" />}
                 />
                 <SideLink
+                    text="Explore"
+                    to={EXPLORE}
+                    activeIcon={<FaHashtag className="text-3xl mr-4" />}
+                    inActiveIcon={<HiOutlineHashtag className="text-3xl mr-4" />}
+                />
+                <SideLink
                     text="Leaderboards"
                     to={LEADERBOARDS}
                     activeIcon={<MdLeaderboard className="text-3xl mr-4" />}
                     inActiveIcon={<MdOutlineLeaderboard className="text-3xl mr-4" />}
+                />
+                <SideLink
+                    text="Profile"
+                    to={PROFILE}
+                    activeIcon={<HiUser className="text-3xl mr-4" />}
+                    inActiveIcon={<HiOutlineUser className="text-3xl mr-4" />}
                 />
             </div>
             <Popover content={content} trigger={["click"]}>

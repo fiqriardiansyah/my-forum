@@ -29,7 +29,9 @@
         "import/no-extraneous-dependencies": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "no-empty": "off",
-        "no-case-declarations": "off"
+        "no-case-declarations": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "react/prop-types": "off"
     },
     "settings": {
         "import/resolver": {

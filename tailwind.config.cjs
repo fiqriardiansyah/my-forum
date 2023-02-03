@@ -1,4 +1,7 @@
+/* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
+const lineClamp = require("@tailwindcss/line-clamp");
+
 module.exports = {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
@@ -13,7 +16,7 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [lineClamp],
     corePlugins: {
         preflight: false,
     },

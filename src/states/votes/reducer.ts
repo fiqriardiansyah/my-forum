@@ -1,5 +1,3 @@
-import { ActionType } from "./action";
-
 export interface SelectorVoutes {
     threads: {
         id: string;
@@ -10,7 +8,7 @@ export interface SelectorVoutes {
 const vouteReducer = (state: SelectorVoutes | null = null, action: any = {}) => {
     switch (action.type) {
         default:
-            return state;
+            return state as SelectorVoutes;
     }
 };
 

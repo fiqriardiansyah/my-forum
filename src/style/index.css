@@ -57,6 +57,30 @@
     .hover-animation {
       @apply transition-colors duration-200;
     }
+    .modal-comment .ant-modal-content {
+      padding: 0 !important;
+    }
+    .search-explore .ant-select-selector {
+      border-radius: 100px !important;
+      /* padding-left:  !important; */
+    }
+    .border-bottom {
+      border-bottom: 1px solid rgb(229 231 235) !important;
+    }
+    .border-top {
+      border-top: 1px solid rgb(229 231 235) !important;
+    }
+    .border-left {
+      border-left: 1px solid rgb(229 231 235) !important;
+    }
+    .border-right {
+      border-right: 1px solid rgb(229 231 235) !important;
+    }
+}
+
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  color:grey;
 }
   
 ::-webkit-scrollbar {

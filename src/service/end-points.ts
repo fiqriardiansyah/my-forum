@@ -1,7 +1,7 @@
 import {
     AxiosResponseCustom,
     CommentResponse,
-    CrateteThread,
+    CreateThread,
     DetailThread,
     LeaderBoard,
     LoginData,
@@ -97,7 +97,9 @@ const endPoints = {
         return this.ProxyRequest<T>(async () => {
             const req = await methods.post<T>({
                 url: `${this.threads}/${data.thread_id}${this.comments}`,
-                data: data.content,
+                data: {
+                    content: data.content,
+                },
             });
             return req;
         });
@@ -121,7 +123,7 @@ const endPoints = {
         });
     },
 
-    CreateThread<T extends { thread: Thread }>(data: CrateteThread) {
+    CreateThread<T extends { thread: Thread }>(data: CreateThread) {
         return this.ProxyRequest<T>(async () => {
             const req = await methods.post<T>({
                 url: this.threads,
@@ -175,10 +177,13 @@ const endPoints = {
             const status = req.data?.status;
             if (status !== "success") {
                 const msg = req.data?.message || DEFAULT_ERROR_MESSAGE;
-                setTimeout(() => {
-                    Utils.Logout();
-                    window.location.reload();
-                }, 300);
+
+                if (req.status === 401) {
+                    setTimeout(() => {
+                        Utils.Logout();
+                        window.location.reload();
+                    }, 300);
+                }
                 throw new Error(msg);
             }
             return req;

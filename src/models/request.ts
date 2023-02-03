@@ -11,7 +11,7 @@ export interface LoginData {
     password: string;
 }
 
-export interface CrateteThread {
+export interface CreateThread {
     title: string;
     body: string;
     category: string;

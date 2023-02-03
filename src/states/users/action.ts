@@ -13,6 +13,8 @@ const ActionType = {
     GET_PROFILE: "GET_PROFILE",
 };
 
+export const GET_USERS_LOADING = "GET_USERS_LOADING";
+
 const doRegister = (data: RegisterResponse) => ({
     type: ActionType.DO_REGISTER,
     payload: {
@@ -50,13 +52,13 @@ const doLogout = () => ({
 });
 
 const asyncGetUsers = () => async (dispatch: any) => {
-    dispatch(showLoading());
+    dispatch(showLoading(GET_USERS_LOADING));
     dispatch(getUsers());
     try {
         const res = await endPoints.Users();
         dispatch(setUsers(res.data.data?.users || []));
     } catch (e) {}
-    dispatch(hideLoading());
+    dispatch(hideLoading(GET_USERS_LOADING));
 };
 
 const asyncGetProfile = () => async (dispatch: any) => {
