@@ -2,7 +2,6 @@ import {
     AxiosResponseCustom,
     CommentResponse,
     CreateThread,
-    DetailThread,
     LeaderBoard,
     LoginData,
     LoginResponse,
@@ -105,7 +104,7 @@ const endPoints = {
         });
     },
 
-    DetailThread<T extends { detailThread: DetailThread }>(data: { thread_id: any }) {
+    DetailThread<T extends { detailThread: Thread }>(data: { thread_id: any }) {
         return this.ProxyRequest<T>(async () => {
             const req = await methods.get<T>({
                 url: `${this.threads}/${data.thread_id}`,

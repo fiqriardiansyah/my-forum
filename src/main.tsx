@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { ConfigProvider } from "antd";
-import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider as ReduxProvider } from "react-redux";
-import { ReactQueryDevtools } from "react-query/devtools";
 import "./style/index.css";
 import "antd/dist/reset.css";
 
@@ -17,17 +15,12 @@ const theme: ThemeConfig = {
     },
 };
 
-const queryClient = new QueryClient();
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <ConfigProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
-            <React.StrictMode>
-                <ReduxProvider store={store}>
-                    <App />
-                </ReduxProvider>
-            </React.StrictMode>
-            <ReactQueryDevtools />
-        </QueryClientProvider>
+        <React.StrictMode>
+            <ReduxProvider store={store}>
+                <App />
+            </ReduxProvider>
+        </React.StrictMode>
     </ConfigProvider>
 );

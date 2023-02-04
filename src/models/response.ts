@@ -15,18 +15,6 @@ export interface LoginResponse {
     token: string;
 }
 
-export interface Thread {
-    id?: string;
-    title?: string;
-    body?: string;
-    category: string;
-    createdAt?: string;
-    ownerId?: string;
-    upVotesBy?: string[];
-    downVotesBy?: string[];
-    totalComments?: number;
-}
-
 export interface Owner {
     id?: string;
     name?: string;
@@ -42,16 +30,18 @@ export interface Comment {
     downVotesBy?: string[];
 }
 
-export interface DetailThread {
+export interface Thread {
     id?: string;
     title?: string;
     body?: string;
-    category?: string;
+    category: string;
     createdAt?: string;
-    owner?: Owner;
     upVotesBy?: string[];
     downVotesBy?: string[];
+    owner?: Owner;
     comments?: Comment[];
+    ownerId?: string;
+    totalComments?: number;
 }
 
 export interface CommentResponse {

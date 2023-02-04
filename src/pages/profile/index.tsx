@@ -46,13 +46,7 @@ function Profile() {
                 totalThreads={state?.threads?.threads?.filter((th) => th.ownerId === state?.user?.id)?.length}
             />
             <ProfileInfo user={state?.user} />
-            <Tabs
-                active={location.pathname}
-                onChangeActive={onTabChange}
-                items={itemsTab}
-                className="mt-4"
-                style={{ borderBottom: "1px solid rgb(229 231 235)" }}
-            />
+            <Tabs active={location.pathname} onChangeActive={onTabChange} items={itemsTab} className="mt-4 border-bottom" />
             <Outlet />
         </>
     );

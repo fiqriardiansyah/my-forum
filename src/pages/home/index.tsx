@@ -19,7 +19,7 @@ function Home() {
     return (
         <>
             <Header title="Home" />
-            <Speak />
+            {state?.user?.id && <Speak />}
             {state.threads?.threads?.map((thread) => (
                 <Thread key={thread.id} thread={thread} />
             ))}

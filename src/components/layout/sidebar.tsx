@@ -28,7 +28,7 @@ function Sidebar() {
         </div>
     );
     return (
-        <div className="w-[300px] min-h-screen p-4 flex flex-col items-start justify-between" style={{ borderRight: "1px solid rgb(229 231 235)" }}>
+        <div className="w-[300px] min-h-screen p-4 flex flex-col items-start justify-between border-right">
             <div className="flex flex-col items-start gap-1">
                 <img src={LogoPrimary} className="h-10 mb-8 ml-4" alt="myforum" />
                 <SideLink
@@ -49,28 +49,32 @@ function Sidebar() {
                     activeIcon={<MdLeaderboard className="text-3xl mr-4" />}
                     inActiveIcon={<MdOutlineLeaderboard className="text-3xl mr-4" />}
                 />
-                <SideLink
-                    text="Profile"
-                    to={PROFILE}
-                    activeIcon={<HiUser className="text-3xl mr-4" />}
-                    inActiveIcon={<HiOutlineUser className="text-3xl mr-4" />}
-                />
-            </div>
-            <Popover content={content} trigger={["click"]}>
-                {user?.id ? (
-                    <button className="flex items-center bg-transparent w-full p-2 rounded-full border-none cursor-pointer hover:bg-gray-200 duration-300 justify-between">
-                        <div className="flex items-center">
-                            <img src={user?.avatar} className="w-10 h-10 rounded-full object-cover" alt="" />
-                            <p className="m-0 text-left mx-3">
-                                {user?.name} <br /> {user?.email}
-                            </p>
-                        </div>
-                        <BsThreeDots className="mr-2" />
-                    </button>
-                ) : (
-                    <Skeleton avatar paragraph={{ rows: 1 }} active />
+                {user?.id && (
+                    <SideLink
+                        text="Profile"
+                        to={PROFILE}
+                        activeIcon={<HiUser className="text-3xl mr-4" />}
+                        inActiveIcon={<HiOutlineUser className="text-3xl mr-4" />}
+                    />
                 )}
-            </Popover>
+            </div>
+            {user?.id && (
+                <Popover content={content} trigger={["click"]}>
+                    {user?.id ? (
+                        <button className="flex items-center bg-transparent w-full p-2 rounded-full border-none cursor-pointer hover:bg-gray-200 duration-300 justify-between">
+                            <div className="flex items-center">
+                                <img src={user?.avatar} className="w-10 h-10 rounded-full object-cover" alt="" />
+                                <p className="m-0 text-left mx-3">
+                                    {user?.name} <br /> {user?.email}
+                                </p>
+                            </div>
+                            <BsThreeDots className="mr-2" />
+                        </button>
+                    ) : (
+                        <Skeleton avatar paragraph={{ rows: 1 }} active />
+                    )}
+                </Popover>
+            )}
         </div>
     );
 }

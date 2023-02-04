@@ -1,6 +1,5 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import Utils from "../utils";
 import { TOKEN } from "../utils/constant";
 
 const client = axios.create();

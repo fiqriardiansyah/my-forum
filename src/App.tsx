@@ -32,7 +32,7 @@ function App() {
 
     return (
         <>
-            <LoadingBar style={{ background: "#1DA1F2", boxShadow: "2px 2px 2px rgba(0,0,0,0.2)", zIndex: 100 }} />
+            <LoadingBar style={{ background: "#1DA1F2", boxShadow: "2px 2px 2px rgba(0,0,0,0.2)", zIndex: 20 }} />
             <BrowserRouter>
                 {user?.token ? (
                     <Routes>
@@ -54,6 +54,16 @@ function App() {
                     </Routes>
                 ) : (
                     <Routes>
+                        <Route path="/" element={<Layout />}>
+                            <Route path="/" element={<Home />} />
+                            <Route path={LEADERBOARDS} element={<LeaderBoards />} />
+                            <Route path={EXPLORE} element={<Explore />} />
+                            <Route path={THREAD + "/:" + THREAD_ID} element={<Thread />} />
+                            <Route path={USER} element={<User />}>
+                                <Route path={USER + "/:" + USER_ID} element={<MyThreads />} />
+                                <Route path={USER + "/:" + USER_ID + LIKES} element={<MyLikes />} />
+                            </Route>
+                        </Route>
                         <Route path={AUTH} element={<Auth />}>
                             <Route path={SIGN_IN} element={<SignIn />} />
                             <Route path={SIGN_UP} element={<SignUp />} />

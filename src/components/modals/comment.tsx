@@ -12,14 +12,14 @@ import { SEARCH } from "utils/routes";
 import Input from "components/form/input";
 import { MODAL_COMMENT } from "states/comments/action";
 
-type ChildrenData = {
+export type CommentModalChildren = {
     open: boolean;
     closeHandler: () => void;
     openHandler: () => void;
 };
 
 type Props = {
-    children: (dt: ChildrenData) => ReactNode;
+    children: (dt: CommentModalChildren) => ReactNode;
     thread?: Thread;
     onSubmitHandler: (comments: string, callback: () => void) => void;
 };
@@ -28,7 +28,7 @@ function CommentModal({ children, thread, onSubmitHandler }: Props) {
     const user = useSelector<ReducerType, SelectorUser>((state) => state.user);
     const [open, setOpen] = useState(false);
 
-    const ownerThread = user?.users?.find((usr) => usr.id === thread?.ownerId);
+    const ownerThread = user?.users?.find((usr) => usr.id === (thread?.ownerId || thread?.owner?.id));
 
     const closeHandler = () => {
         setOpen(false);
@@ -38,7 +38,7 @@ function CommentModal({ children, thread, onSubmitHandler }: Props) {
         setOpen(true);
     };
 
-    const childrenData: ChildrenData = {
+    const childrenData: CommentModalChildren = {
         open,
         openHandler,
         closeHandler,
@@ -57,7 +57,7 @@ function CommentModal({ children, thread, onSubmitHandler }: Props) {
     return (
         <>
             <Modal title={<p></p>} open={open} onCancel={closeHandler} footer={null} className="modal-comment">
-                <LoadingBar style={{ background: "#1DA1F2" }} scope={MODAL_COMMENT} />
+                <LoadingBar style={{ background: "#1DA1F2", zIndex: "20" }} scope={MODAL_COMMENT} />
                 <form onSubmit={onSubmit} className="p-6">
                     <div className="w-full flex gap-4 mt-5 overflow-hidden">
                         <div className="flex flex-col items-center h-full">

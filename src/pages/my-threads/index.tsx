@@ -33,7 +33,9 @@ function MyThreads() {
                     <img src={NoThreadsImg} className="w-[400px] mt-10" alt="" />
                     <div className="w-[50%] mt-10">
                         <h1 className="font-semibold m-0">No Threads</h1>
-                        <p className="text-gray-400">Try open a discussion</p>
+                        <p className="text-gray-400">
+                            {location.pathname?.includes(USER) ? "This user hasn’t liked any Discussion" : "Try open a discussion"}
+                        </p>
                     </div>
                 </div>
             )}

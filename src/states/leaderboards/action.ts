@@ -8,6 +8,8 @@ export const ActionType = {
     SET_LEADERBOARDS: "SET_LEADERBOARDS",
 };
 
+export const LEADERBOARD_LOADING = "LEADERBOARD_LOADING";
+
 export const setLeaderboards = (leaderboards: LeaderBoard[]) => ({
     type: ActionType.SET_LEADERBOARDS,
     payload: {
@@ -20,11 +22,11 @@ export const getLeaderboards = () => ({
 });
 
 export const asyncGetLeaderboards = () => async (dispatch: any) => {
-    dispatch(showLoading());
+    dispatch(showLoading(LEADERBOARD_LOADING));
     dispatch(getLeaderboards());
     try {
         const leaderboards = await endPoints.Leaderboards();
         dispatch(setLeaderboards(leaderboards.data.data?.leaderboards || []));
     } catch (e) {}
-    dispatch(hideLoading());
+    dispatch(hideLoading(LEADERBOARD_LOADING));
 };

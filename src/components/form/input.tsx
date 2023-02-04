@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, HTMLAttributes } from "react";
+import { HTMLAttributes, useEffect, useRef } from "react";
 
 type Props = HTMLAttributes<HTMLDivElement> & {
     id: string;

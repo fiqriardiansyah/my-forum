@@ -1,6 +1,6 @@
 import { showLoading, hideLoading } from "react-redux-loading-bar";
 import endPoints from "service/end-points";
-import { successComment, failComment } from "states/threads/action";
+import { successComment, failComment, asyncGetDetailThread } from "states/threads/action";
 
 export default {};
 export const ActionType = {
@@ -19,6 +19,7 @@ export const asyncCreateComment = (threadId: any, content: string, callback: () 
     dispatch(successComment(threadId, content));
     try {
         await endPoints.CreateComment({ thread_id: threadId, content });
+        dispatch(asyncGetDetailThread(threadId));
     } catch (e) {
         dispatch(failComment(threadId, content));
     }

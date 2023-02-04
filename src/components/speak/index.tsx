@@ -1,11 +1,11 @@
-import { Button, Input, Space } from "antd";
+import { Button, Input } from "antd";
 import InputRich from "components/form/input";
-import { useDispatch, useSelector } from "react-redux";
-import { ReducerType } from "states";
-import { useState } from "react";
 import { CreateThread } from "models";
-import { asyncCreateThread, CREATE_LOADING } from "states/threads/action";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import LoadingBar from "react-redux-loading-bar";
+import { ReducerType } from "states";
+import { asyncCreateThread, CREATE_LOADING } from "states/threads/action";
 
 function Speak() {
     const state = useSelector<ReducerType, ReducerType>((state) => state);
@@ -48,8 +48,8 @@ function Speak() {
     const tags = [...new Set(state?.threads?.threads?.map((th) => th?.category) || [])];
 
     return (
-        <div className="" style={{ borderBottom: "1px solid rgb(229 231 235)" }}>
-            <LoadingBar style={{ background: "#1DA1F2" }} scope={CREATE_LOADING} />
+        <div className="border-bottom">
+            <LoadingBar style={{ background: "#1DA1F2", zIndex: "20" }} scope={CREATE_LOADING} />
             <form onSubmit={onSubmit} className="p-3">
                 <div className="w-full flex gap-4">
                     <img src={state?.user?.avatar} className="w-10 h-10 rounded-full object-cover" alt="" />

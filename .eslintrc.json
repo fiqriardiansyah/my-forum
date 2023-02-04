@@ -31,7 +31,8 @@
         "no-empty": "off",
         "no-case-declarations": "off",
         "@typescript-eslint/no-var-requires": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "@typescript-eslint/no-empty-function": "off"
     },
     "settings": {
         "import/resolver": {

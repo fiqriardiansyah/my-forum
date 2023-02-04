@@ -1,6 +1,3 @@
-import { Props as TabsProps } from "components/tabs";
-import { LIKES, PROFILE, PROFILE_LIKES, USER } from "./routes";
-
 export const TOKEN = "token";
 export const DEFAULT_ERROR_MESSAGE = "Ooops something wrong!";
 export const SEARCH = "search";

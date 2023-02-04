@@ -1,9 +1,7 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { ThunkDispatch, ThunkAction, AnyAction } from "@reduxjs/toolkit";
-import { LoginResponse, User } from "./response";
 
-export * from "./response";
 export * from "./request";
+export * from "./response";
 
 export interface BaseResponse<T = any> {
     data: T;
@@ -34,5 +32,7 @@ export interface DeleteMethodParams<T = any> {
 }
 
 export type AxiosResponseCustom<T> = AxiosResponse<BaseResponse<T>, any>;
+
+export type InteractionType = "like" | "dislike" | "comment";
 
 export default {};
