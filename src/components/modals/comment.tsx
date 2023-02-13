@@ -93,7 +93,7 @@ function CommentModal({ children, thread, onSubmitHandler }: Props) {
                         <Input id="comments" placeholder="Speak your reply" />
                     </div>
                     <div className="w-full flex items-center justify-end mt-4">
-                        <Button type="primary" htmlType="submit" className="!font-semibold !rounded-full" size="large">
+                        <Button title="reply-button" type="primary" htmlType="submit" className="!font-semibold !rounded-full" size="large">
                             Reply
                         </Button>
                     </div>

@@ -2,21 +2,20 @@ import { Button, Input } from "antd";
 import InputRich from "components/form/input";
 import { CreateThread } from "models";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import LoadingBar from "react-redux-loading-bar";
-import endPoints from "service/end-points";
 import { ReducerType } from "states";
-import { asyncCreateThread, asyncGetThreads, CREATE_LOADING } from "states/threads/action";
+import { CREATE_LOADING } from "states/threads/action";
 
-function Speak() {
+type Props = {
+    onSpeakHandler: (dt: CreateThread) => void;
+};
+
+function Speak({ onSpeakHandler }: Props) {
     const state = useSelector<ReducerType, ReducerType>((state) => state);
-    const dispatch = useDispatch();
 
     const [tag, setTag] = useState("");
     const [title, setTitle] = useState("");
-
-    const createThread = async (dt: CreateThread) => (await endPoints.CreateThread(dt)).data.data.thread;
-    const getThreads = async () => (await endPoints.Threads()).data.data.threads;
 
     const onSubmit = (e: any) => {
         e.preventDefault();
@@ -28,12 +27,7 @@ function Speak() {
             category: tag,
             title,
         };
-        dispatch(
-            asyncCreateThread(
-                () => createThread(dt),
-                () => dispatch(asyncGetThreads(getThreads) as any)
-            ) as any
-        );
+        onSpeakHandler(dt);
         setTag("");
         setTitle("");
         e.target.querySelector("#body").innerHTML = "";
@@ -78,7 +72,7 @@ function Speak() {
                                     </button>
                                 ))}
                             </div>
-                            <Button type="primary" htmlType="submit" className="!font-semibold !rounded-full" size="large">
+                            <Button title="speak" type="primary" htmlType="submit" className="!font-semibold !rounded-full" size="large">
                                 Speak
                             </Button>
                         </div>

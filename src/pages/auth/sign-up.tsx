@@ -1,11 +1,10 @@
+import { message } from "antd";
 import { AnimatePresence, motion } from "framer-motion";
-import { Button, Form, Input, message } from "antd";
 import { RegisterData } from "models";
+import RegisterInput from "modules/auth/register-input";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { asyncDoRegister } from "states/users/action";
-import { SIGN_IN } from "utils/routes";
 import endPoints from "service/end-points";
+import { asyncDoRegister } from "states/users/action";
 
 function SignUp() {
     const dispatch = useDispatch();
@@ -16,7 +15,7 @@ function SignUp() {
         return res.data.data;
     };
 
-    const onFinish = (data: RegisterData) => {
+    const onSubmit = (data: RegisterData) => {
         dispatch(asyncDoRegister(() => register(data)) as any);
     };
 
@@ -28,23 +27,7 @@ function SignUp() {
             >
                 <div className="flex flex-col gap-4 w-[70%]">
                     <h2 className="m-0 font-semibold text-3xl">Join My Forum today</h2>
-                    <Form onFinish={onFinish}>
-                        <Form.Item name="name" rules={[{ required: true, message: "Please input your name!" }]}>
-                            <Input size="large" placeholder="Name" />
-                        </Form.Item>
-                        <Form.Item name="email" rules={[{ required: true, message: "Please input your email!" }]}>
-                            <Input size="large" placeholder="Email" />
-                        </Form.Item>
-                        <Form.Item name="password" rules={[{ required: true, message: "Please input your password!" }]}>
-                            <Input.Password size="large" placeholder="Password" />
-                        </Form.Item>
-                        <div className="w-full flex items-center justify-between">
-                            <Button type="primary" htmlType="submit">
-                                Register
-                            </Button>
-                            <Link to={SIGN_IN}>Sign in</Link>
-                        </div>
-                    </Form>
+                    <RegisterInput onSubmit={onSubmit} />
                 </div>
             </motion.div>
         </AnimatePresence>

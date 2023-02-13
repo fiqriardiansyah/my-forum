@@ -14,6 +14,7 @@ function Tabs({ active = "", items, onChangeActive, ...rest }: Props) {
     const buttonClassname = (key: string) => {
         return clsx("!flex-1 p-4 bg-white hover:bg-gray-200 duration-300 border-none cursor-pointer text-gray-700 relative", {
             "font-semibold": active === key,
+            active: active === key,
         });
     };
 

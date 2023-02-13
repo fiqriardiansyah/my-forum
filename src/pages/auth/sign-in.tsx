@@ -1,12 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Button, Form, Input } from "antd";
 import { LoginData } from "models";
+import LoginInput from "modules/auth/login-input";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { asyncDoLogin } from "states/users/action";
-import { SIGN_UP } from "utils/routes";
-import { POPUP_MOTION } from "utils/constant";
 import endPoints from "service/end-points";
+import { asyncDoLogin } from "states/users/action";
+import { POPUP_MOTION } from "utils/constant";
 
 function SignIn() {
     const dispatch = useDispatch();
@@ -14,7 +12,7 @@ function SignIn() {
     const login = async (dt: LoginData) => (await endPoints.Login(dt)).data.data;
     const profile = async () => (await endPoints.Me()).data?.data?.user;
 
-    const onFinish = (data: LoginData) => {
+    const onSubmit = (data: LoginData) => {
         dispatch(asyncDoLogin(() => login(data), profile) as any);
     };
 
@@ -23,20 +21,7 @@ function SignIn() {
             <motion.div initial={POPUP_MOTION.initial} animate={POPUP_MOTION.animate}>
                 <div className="flex flex-col gap-4 w-[70%]">
                     <h2 className="m-0 font-semibold text-3xl">Log in to My Forum</h2>
-                    <Form onFinish={onFinish}>
-                        <Form.Item name="email" rules={[{ required: true, message: "Please input your email!" }]}>
-                            <Input size="large" placeholder="Email" />
-                        </Form.Item>
-                        <Form.Item name="password" rules={[{ required: true, message: "Please input your password!" }]}>
-                            <Input.Password size="large" placeholder="Password" />
-                        </Form.Item>
-                        <div className="w-full flex items-center justify-between">
-                            <Button type="primary" htmlType="submit">
-                                Login
-                            </Button>
-                            <Link to={SIGN_UP}>Sign up</Link>
-                        </div>
-                    </Form>
+                    <LoginInput onSubmit={onSubmit} />
                 </div>
             </motion.div>
         </AnimatePresence>
