@@ -1,15 +1,15 @@
-export interface SelectorVoutes {
+export interface SelectorVotes {
     threads: {
         id: string;
-        voute: "down" | "up";
+        vote: "down" | "up";
     }[];
 }
 
-const vouteReducer = (state: SelectorVoutes | null = null, action: any = {}) => {
+const voteReducer = (state: SelectorVotes | null = null, action: any = {}) => {
     switch (action.type) {
         default:
-            return state as SelectorVoutes;
+            return state as SelectorVotes;
     }
 };
 
-export default vouteReducer;
+export default voteReducer;

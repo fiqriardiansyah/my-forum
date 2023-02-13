@@ -1,17 +1,16 @@
-import { CreateThread, Thread } from "models";
-import { showLoading, hideLoading } from "react-redux-loading-bar";
-import endPoints from "service/end-points";
+import { Thread } from "models";
+import { hideLoading, showLoading } from "react-redux-loading-bar";
 
 export default {};
 export const ActionType = {
     GET_THREADS: "GET_THREADS",
     SET_THREADS: "SET_THREADS",
-    SET_DOWN_VOUTE_THREAD: "SET_DOWN_VOUTE_THREAD",
-    SET_UP_VOUTE_THREAD: "SET_UP_VOUTE_THREAD",
-    SET_DOWN_VOUTE_THREAD_DETAIL: "SET_DOWN_VOUTE_THREAD_DETAIL",
-    SET_UP_VOUTE_THREAD_DETAIL: "SET_UP_VOUTE_THREAD_DETAIL",
-    SET_UP_VOUTE_COMMENT: "SET_UP_VOUTE_COMMENT",
-    SET_DOWN_VOUTE_COMMENT: "SET_DOWN_VOUTE_COMMENT",
+    SET_DOWN_VOTE_THREAD: "SET_DOWN_VOTE_THREAD",
+    SET_UP_VOTE_THREAD: "SET_UP_VOTE_THREAD",
+    SET_DOWN_VOTE_THREAD_DETAIL: "SET_DOWN_VOTE_THREAD_DETAIL",
+    SET_UP_VOTE_THREAD_DETAIL: "SET_UP_VOTE_THREAD_DETAIL",
+    SET_UP_VOTE_COMMENT: "SET_UP_VOTE_COMMENT",
+    SET_DOWN_VOTE_COMMENT: "SET_DOWN_VOTE_COMMENT",
     SUCCESS_COMMENT: "SUCCESS_COMMENT",
     FAIL_COMMENT: "FAIL_COMMENT",
     CREATE_THREAD: "CREATE_THREAD",
@@ -24,16 +23,16 @@ export const CREATE_LOADING = "CREATE_LOADING";
 export const GET_THREADS_LOADING = "GET_THREADS_LOADING";
 export const GET_THREAD_DETAIL = "GET_THREAD_DETAIL";
 
-export const setUpVouteComment = (commentId: any, userId: any) => ({
-    type: ActionType.SET_UP_VOUTE_COMMENT,
+export const setUpVoteComment = (commentId: any, userId: any) => ({
+    type: ActionType.SET_UP_VOTE_COMMENT,
     payload: {
         commentId,
         userId,
     },
 });
 
-export const setDownVouteComment = (commentId: any, userId: any) => ({
-    type: ActionType.SET_DOWN_VOUTE_COMMENT,
+export const setDownVoteComment = (commentId: any, userId: any) => ({
+    type: ActionType.SET_DOWN_VOTE_COMMENT,
     payload: {
         commentId,
         userId,
@@ -71,32 +70,32 @@ export const successComment = (threadId: any, content: any) => ({
     },
 });
 
-export const setUpVoute = (threadId: any, userId: any) => ({
-    type: ActionType.SET_UP_VOUTE_THREAD,
+export const setUpVote = (threadId: any, userId: any) => ({
+    type: ActionType.SET_UP_VOTE_THREAD,
     payload: {
         threadId,
         userId,
     },
 });
 
-export const setDownVoute = (threadId: any, userId: any) => ({
-    type: ActionType.SET_DOWN_VOUTE_THREAD,
+export const setDownVote = (threadId: any, userId: any) => ({
+    type: ActionType.SET_DOWN_VOTE_THREAD,
     payload: {
         threadId,
         userId,
     },
 });
 
-export const setDetailUpVoute = (threadId: any, userId: any) => ({
-    type: ActionType.SET_UP_VOUTE_THREAD_DETAIL,
+export const setDetailUpVote = (threadId: any, userId: any) => ({
+    type: ActionType.SET_UP_VOTE_THREAD_DETAIL,
     payload: {
         threadId,
         userId,
     },
 });
 
-export const setDetailDownVoute = (threadId: any, userId: any) => ({
-    type: ActionType.SET_DOWN_VOUTE_THREAD_DETAIL,
+export const setDetailDownVote = (threadId: any, userId: any) => ({
+    type: ActionType.SET_DOWN_VOTE_THREAD_DETAIL,
     payload: {
         threadId,
         userId,
@@ -114,36 +113,36 @@ export const getThreads = () => ({
     type: ActionType.GET_THREADS,
 });
 
-export const asyncGetDetailThread = (id: any) => async (dispatch: any) => {
-    dispatch(showLoading(GET_THREAD_DETAIL));
-    dispatch(getDetailThread());
-    try {
-        const thread = await endPoints.DetailThread({ thread_id: id });
-        dispatch(setDetailThread(thread.data?.data?.detailThread || {}));
-    } catch (e) {}
-    dispatch(hideLoading(GET_THREAD_DETAIL));
-};
-
-export const asyncGetThreads = () => async (dispatch: any) => {
-    dispatch(showLoading(GET_THREADS_LOADING));
-    dispatch(getThreads());
-    try {
-        const threads = await endPoints.Threads();
-        dispatch(setThreads(threads.data.data?.threads || []));
-    } catch (e) {}
-    dispatch(hideLoading(GET_THREADS_LOADING));
-};
-
 export const createThread = () => ({
     type: ActionType.CREATE_THREAD,
 });
 
-export const asyncCreateThread = (data: CreateThread) => async (dispatch: any) => {
+export const asyncGetDetailThread = (caller: () => Promise<Thread>) => async (dispatch: any) => {
+    dispatch(showLoading(GET_THREAD_DETAIL));
+    dispatch(getDetailThread());
+    try {
+        const thread = await caller();
+        dispatch(setDetailThread(thread));
+    } catch (e) {}
+    dispatch(hideLoading(GET_THREAD_DETAIL));
+};
+
+export const asyncGetThreads = (caller: () => Promise<Thread[]>) => async (dispatch: any) => {
+    dispatch(showLoading(GET_THREADS_LOADING));
+    dispatch(getThreads());
+    try {
+        const threads = await caller();
+        dispatch(setThreads(threads));
+    } catch (e) {}
+    dispatch(hideLoading(GET_THREADS_LOADING));
+};
+
+export const asyncCreateThread = (caller: () => Promise<Thread>, callback: any) => async (dispatch: any) => {
     dispatch(showLoading(CREATE_LOADING));
     dispatch(createThread());
     try {
-        await endPoints.CreateThread(data);
-        dispatch(asyncGetThreads());
+        await caller();
+        callback();
     } catch (e) {}
     dispatch(hideLoading(CREATE_LOADING));
 };

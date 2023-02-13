@@ -2,6 +2,7 @@ import htmlParser from "html-react-parser";
 import { Thread as ThreadType } from "models";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import endPoints from "service/end-points";
 import { ReducerType } from "states";
 import { asyncDisLikeThread, asyncLikeThread } from "states/votes/action";
 import { EXPLORE, THREAD } from "utils/routes";
@@ -20,17 +21,20 @@ const Thread = ({ thread }: Props) => {
 
     const isLoading = (state.loadingBar as any)?.default !== 0 && !user;
 
+    const upvote = async (thread: ThreadType) => (await endPoints.UpVoteThread({ thread_id: thread?.id })).data.data;
+    const downvote = async (thread: ThreadType) => (await endPoints.DownVoteThread({ thread_id: thread?.id })).data.data;
+
     const onCLickHandler = (e: React.SyntheticEvent) => {
         e.stopPropagation();
         navigate(THREAD + "/" + thread.id);
     };
 
     const onLikeHandler = () => {
-        dispatch(asyncLikeThread(thread) as any);
+        dispatch(asyncLikeThread(() => upvote(thread), thread) as any);
     };
 
     const onDisLikeHandler = () => {
-        dispatch(asyncDisLikeThread(thread) as any);
+        dispatch(asyncDisLikeThread(() => downvote(thread), thread) as any);
     };
 
     return (

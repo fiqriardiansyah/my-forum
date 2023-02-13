@@ -3,6 +3,7 @@ import ThreadHeader from "components/thread/header";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBar from "react-redux-loading-bar";
+import endPoints from "service/end-points";
 import { ReducerType } from "states";
 import { asyncGetLeaderboards, LEADERBOARD_LOADING } from "states/leaderboards/action";
 
@@ -10,8 +11,10 @@ function LeaderBoards() {
     const state = useSelector<ReducerType, ReducerType>((state) => state);
     const dispatch = useDispatch();
 
+    const getLeaderboards = async () => (await endPoints.Leaderboards()).data?.data?.leaderboards;
+
     useEffect(() => {
-        dispatch(asyncGetLeaderboards() as any);
+        dispatch(asyncGetLeaderboards(getLeaderboards) as any);
     }, []);
 
     const isLoading = (state.loadingBar as any)?.LEADERBOARD_LOADING;

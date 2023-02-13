@@ -6,11 +6,16 @@ import { Link } from "react-router-dom";
 import { asyncDoLogin } from "states/users/action";
 import { SIGN_UP } from "utils/routes";
 import { POPUP_MOTION } from "utils/constant";
+import endPoints from "service/end-points";
 
 function SignIn() {
     const dispatch = useDispatch();
+
+    const login = async (dt: LoginData) => (await endPoints.Login(dt)).data.data;
+    const profile = async () => (await endPoints.Me()).data?.data?.user;
+
     const onFinish = (data: LoginData) => {
-        dispatch(asyncDoLogin(data) as any);
+        dispatch(asyncDoLogin(() => login(data), profile) as any);
     };
 
     return (

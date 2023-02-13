@@ -1,6 +1,5 @@
 import { LeaderBoard } from "models";
-import { showLoading, hideLoading } from "react-redux-loading-bar";
-import endPoints from "service/end-points";
+import { hideLoading, showLoading } from "react-redux-loading-bar";
 
 export default {};
 export const ActionType = {
@@ -21,12 +20,12 @@ export const getLeaderboards = () => ({
     type: ActionType.GET_LEADERBOARDS,
 });
 
-export const asyncGetLeaderboards = () => async (dispatch: any) => {
+export const asyncGetLeaderboards = (caller: () => Promise<LeaderBoard[]>) => async (dispatch: any) => {
     dispatch(showLoading(LEADERBOARD_LOADING));
     dispatch(getLeaderboards());
     try {
-        const leaderboards = await endPoints.Leaderboards();
-        dispatch(setLeaderboards(leaderboards.data.data?.leaderboards || []));
+        const leaderboards = await caller();
+        dispatch(setLeaderboards(leaderboards));
     } catch (e) {}
     dispatch(hideLoading(LEADERBOARD_LOADING));
 };

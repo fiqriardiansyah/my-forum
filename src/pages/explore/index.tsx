@@ -9,6 +9,7 @@ import NoResultImg from "assets/images/no-result.png";
 import { useEffect } from "react";
 import { asyncGetUsers } from "states/users/action";
 import { asyncGetThreads } from "states/threads/action";
+import endPoints from "service/end-points";
 
 function Explore() {
     const [params] = useSearchParams();
@@ -24,9 +25,12 @@ function Explore() {
 
     const results = query[0] === "#" ? tagBased : freeBased;
 
+    const getThreads = async () => (await endPoints.Threads()).data.data.threads;
+    const getUsers = async () => (await endPoints.Users()).data.data.users;
+
     useEffect(() => {
-        dispatch(asyncGetThreads() as any);
-        dispatch(asyncGetUsers() as any);
+        dispatch(asyncGetThreads(getThreads) as any);
+        dispatch(asyncGetUsers(getUsers) as any);
     }, []);
 
     return (

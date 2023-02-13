@@ -14,6 +14,8 @@ import { asyncDisLikeThreadDetail, asyncLikeThreadDetail } from "states/votes/ac
 import { THREAD_ID } from "utils/constant";
 import { EXPLORE } from "utils/routes";
 import Comment from "modules/thread/comment";
+import endPoints from "service/end-points";
+import { Thread as ThreadModel } from "models";
 
 function Thread() {
     const { [THREAD_ID]: id } = useParams();
@@ -25,19 +27,24 @@ function Thread() {
         navigate(-1);
     };
 
+    const getDetailThread = async () => (await endPoints.DetailThread({ thread_id: id })).data.data.detailThread;
+
     useEffect(() => {
-        dispatch(asyncGetDetailThread(id) as any);
+        dispatch(asyncGetDetailThread(getDetailThread) as any);
     }, []);
 
     const isLoading = (state?.loadingBar as any)?.GET_THREAD_DETAIL;
     const thread = state?.threads?.thread;
 
+    const upvote = async (thread: ThreadModel) => (await endPoints.UpVoteThread({ thread_id: thread?.id })).data.data;
+    const downvote = async (thread: ThreadModel) => (await endPoints.DownVoteThread({ thread_id: thread?.id })).data.data;
+
     const onLikeHandler = () => {
-        dispatch(asyncLikeThreadDetail(thread) as any);
+        dispatch(asyncLikeThreadDetail(() => upvote(thread), thread) as any);
     };
 
     const onDisLikeHandler = () => {
-        dispatch(asyncDisLikeThreadDetail(thread) as any);
+        dispatch(asyncDisLikeThreadDetail(() => downvote(thread), thread) as any);
     };
 
     return (

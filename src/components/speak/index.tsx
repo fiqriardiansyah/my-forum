@@ -4,8 +4,9 @@ import { CreateThread } from "models";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBar from "react-redux-loading-bar";
+import endPoints from "service/end-points";
 import { ReducerType } from "states";
-import { asyncCreateThread, CREATE_LOADING } from "states/threads/action";
+import { asyncCreateThread, asyncGetThreads, CREATE_LOADING } from "states/threads/action";
 
 function Speak() {
     const state = useSelector<ReducerType, ReducerType>((state) => state);
@@ -14,18 +15,25 @@ function Speak() {
     const [tag, setTag] = useState("");
     const [title, setTitle] = useState("");
 
+    const createThread = async (dt: CreateThread) => (await endPoints.CreateThread(dt)).data.data.thread;
+    const getThreads = async () => (await endPoints.Threads()).data.data.threads;
+
     const onSubmit = (e: any) => {
         e.preventDefault();
         const body = e.target.querySelector("#body").innerHTML;
         if (!title || !tag || !body) return;
 
-        const createThread: CreateThread = {
+        const dt: CreateThread = {
             body,
             category: tag,
             title,
         };
-        console.log(createThread);
-        dispatch(asyncCreateThread(createThread) as any);
+        dispatch(
+            asyncCreateThread(
+                () => createThread(dt),
+                () => dispatch(asyncGetThreads(getThreads) as any)
+            ) as any
+        );
         setTag("");
         setTitle("");
         e.target.querySelector("#body").innerHTML = "";

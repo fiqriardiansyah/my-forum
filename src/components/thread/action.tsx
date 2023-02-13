@@ -8,6 +8,7 @@ import { ReducerType } from "states";
 import { asyncCreateComment } from "states/comments/action";
 import ActionButton from "./action-button";
 import AuthModal, { AuthModalChildren } from "components/modals/auth";
+import endPoints from "service/end-points";
 
 export type Props = React.HTMLAttributes<HTMLDivElement> & {
     thread?: Thread;
@@ -42,8 +43,10 @@ function ThreadAction({
     const alreadyLike = upVotesBy?.find((id) => myId === id) || thread?.upVotesBy?.find((id) => myId === id);
     const alreadyDisLike = downVotesBy?.find((id) => myId === id) || thread?.downVotesBy?.find((id) => myId === id);
 
-    const onSubmitComment = (comments: string, callback: () => void) => {
-        dispatch(asyncCreateComment(thread?.id, comments, callback) as any);
+    const createComment = async (threadId: any, content: string) => (await endPoints.CreateComment({ thread_id: threadId, content })).data.data;
+
+    const onSubmitComment = (content: string, callback: () => void) => {
+        dispatch(asyncCreateComment({ caller: () => createComment(thread?.id, content), threadId: thread?.id, content, callback }) as any);
     };
 
     const onClickComment = (commentModal: CommentModalChildren, authModal: AuthModalChildren) => {

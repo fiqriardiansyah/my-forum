@@ -180,7 +180,6 @@ const endPoints = {
                 if (req.status === 401) {
                     setTimeout(() => {
                         Utils.Logout();
-                        window.location.reload();
                     }, 300);
                 }
                 throw new Error(msg);

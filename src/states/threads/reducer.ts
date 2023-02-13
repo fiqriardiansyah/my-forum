@@ -11,8 +11,8 @@ function threadsReducer(state: SelectorThreads | null = null, action: any = {}) 
     const commentId = action?.payload?.commentId;
 
     switch (action.type) {
-        case ActionType.SET_UP_VOUTE_COMMENT:
-            return {
+        case ActionType.SET_UP_VOTE_COMMENT:
+            const newState = {
                 ...state,
                 thread: {
                     ...state?.thread,
@@ -26,7 +26,8 @@ function threadsReducer(state: SelectorThreads | null = null, action: any = {}) 
                     }),
                 },
             };
-        case ActionType.SET_DOWN_VOUTE_COMMENT:
+            return newState;
+        case ActionType.SET_DOWN_VOTE_COMMENT:
             return {
                 ...state,
                 thread: {
@@ -51,7 +52,7 @@ function threadsReducer(state: SelectorThreads | null = null, action: any = {}) 
                 ...state,
                 ...action.payload,
             };
-        case ActionType.SET_UP_VOUTE_THREAD_DETAIL:
+        case ActionType.SET_UP_VOTE_THREAD_DETAIL:
             return {
                 ...state,
                 thread: {
@@ -62,7 +63,7 @@ function threadsReducer(state: SelectorThreads | null = null, action: any = {}) 
                         : state?.thread?.downVotesBy,
                 },
             };
-        case ActionType.SET_DOWN_VOUTE_THREAD_DETAIL:
+        case ActionType.SET_DOWN_VOTE_THREAD_DETAIL:
             return {
                 ...state,
                 thread: {
@@ -75,7 +76,7 @@ function threadsReducer(state: SelectorThreads | null = null, action: any = {}) 
                         : state?.thread?.upVotesBy,
                 },
             };
-        case ActionType.SET_UP_VOUTE_THREAD:
+        case ActionType.SET_UP_VOTE_THREAD:
             return {
                 ...state,
                 threads: [...(state?.threads || [])].map((th) =>
@@ -88,7 +89,7 @@ function threadsReducer(state: SelectorThreads | null = null, action: any = {}) 
                           }
                 ),
             };
-        case ActionType.SET_DOWN_VOUTE_THREAD:
+        case ActionType.SET_DOWN_VOTE_THREAD:
             return {
                 ...state,
                 threads: [...(state?.threads || [])].map((th) =>

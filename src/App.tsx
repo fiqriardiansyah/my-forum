@@ -19,14 +19,17 @@ import Explore from "pages/explore";
 import User from "pages/user";
 import { THREAD_ID, USER_ID } from "utils/constant";
 import Thread from "pages/thread";
+import endPoints from "service/end-points";
 
 function App() {
     const user = useSelector<ReducerType, SelectorUser>((state) => state.user);
     const dispatch = useDispatch();
 
+    const getProfile = async () => (await endPoints.Me()).data?.data?.user;
+
     useEffect(() => {
         if (user?.token && !user.id) {
-            dispatch(asyncGetProfile() as any);
+            dispatch(asyncGetProfile(getProfile) as any);
         }
     }, [user?.token]);
 

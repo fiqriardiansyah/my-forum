@@ -4,6 +4,7 @@ import ProfileInfo from "modules/profile/info";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
+import endPoints from "service/end-points";
 import { ReducerType } from "states";
 import { asyncGetThreads } from "states/threads/action";
 import { asyncGetUsers } from "states/users/action";
@@ -33,9 +34,12 @@ function Profile() {
         navigate(key);
     };
 
+    const getThreads = async () => (await endPoints.Threads()).data.data.threads;
+    const getUsers = async () => (await endPoints.Users()).data.data.users;
+
     useEffect(() => {
-        dispatch(asyncGetThreads() as any);
-        dispatch(asyncGetUsers() as any);
+        dispatch(asyncGetThreads(getThreads) as any);
+        dispatch(asyncGetUsers(getUsers) as any);
     }, []);
 
     return (

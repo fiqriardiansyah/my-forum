@@ -1,15 +1,23 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { RegisterData } from "models";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { asyncDoRegister } from "states/users/action";
 import { SIGN_IN } from "utils/routes";
+import endPoints from "service/end-points";
 
 function SignUp() {
     const dispatch = useDispatch();
+
+    const register = async (dt: RegisterData) => {
+        const res = await endPoints.Register(dt);
+        message.success(res.data?.message);
+        return res.data.data;
+    };
+
     const onFinish = (data: RegisterData) => {
-        dispatch(asyncDoRegister(data) as any);
+        dispatch(asyncDoRegister(() => register(data)) as any);
     };
 
     return (

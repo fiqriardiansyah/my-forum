@@ -1,10 +1,8 @@
 import { LoginResponse, RegisterResponse, User } from "models";
-import endPoints from "service/end-points";
-import { showLoading, hideLoading } from "react-redux-loading-bar";
-import { message } from "antd";
+import { hideLoading, showLoading } from "react-redux-loading-bar";
 import Utils from "utils";
 
-const ActionType = {
+export const ActionType = {
     DO_REGISTER: "DO_REGISTER",
     DO_LOGIN: "DO_LOGIN",
     DO_LOGOUT: "DO_LOGOUT",
@@ -15,57 +13,55 @@ const ActionType = {
 
 export const GET_USERS_LOADING = "GET_USERS_LOADING";
 
-const doRegister = (data: RegisterResponse) => ({
+export const doRegister = (data: RegisterResponse) => ({
     type: ActionType.DO_REGISTER,
     payload: {
         ...data,
     },
 });
 
-const doLogin = (data: LoginResponse) => ({
+export const doLogin = (data: LoginResponse) => ({
     type: ActionType.DO_LOGIN,
     payload: {
         ...data,
     },
 });
 
-const setUsers = (users: User[]) => ({
+export const setUsers = (users: User[]) => ({
     type: ActionType.SET_USERS,
     payload: {
         users,
     },
 });
 
-const getUsers = () => ({
+export const getUsers = () => ({
     type: ActionType.GET_USERS,
 });
 
-const getProfile = (user: User) => ({
+export const setProfile = (user: User) => ({
     type: ActionType.SET_USERS,
     payload: {
         ...user,
     },
 });
 
-const doLogout = () => ({
+export const doLogout = () => ({
     type: ActionType.DO_LOGOUT,
 });
 
-const asyncGetUsers = () => async (dispatch: any) => {
+export const asyncGetUsers = (caller: () => Promise<User[]>) => async (dispatch: any) => {
     dispatch(showLoading(GET_USERS_LOADING));
     dispatch(getUsers());
     try {
-        const res = await endPoints.Users();
-        dispatch(setUsers(res.data.data?.users || []));
+        dispatch(setUsers(await caller()));
     } catch (e) {}
     dispatch(hideLoading(GET_USERS_LOADING));
 };
 
-const asyncGetProfile = () => async (dispatch: any) => {
+export const asyncGetProfile = (caller: () => Promise<User>) => async (dispatch: any) => {
     dispatch(showLoading());
     try {
-        const res = await endPoints.Me();
-        dispatch(getProfile(res.data.data?.user));
+        dispatch(setProfile(await caller()));
     } catch (e) {
         Utils.Logout();
         window.location.reload();
@@ -73,25 +69,19 @@ const asyncGetProfile = () => async (dispatch: any) => {
     dispatch(hideLoading());
 };
 
-const asyncDoRegister = (data: any) => async (dispatch: any) => {
+export const asyncDoRegister = (caller: () => Promise<RegisterResponse>) => async (dispatch: any) => {
     dispatch(showLoading());
     try {
-        const res = await endPoints.Register(data);
-        message.success(res.data.message);
-        dispatch(doRegister(res.data.data));
+        dispatch(doRegister(await caller()));
     } catch (e) {}
     dispatch(hideLoading());
 };
 
-const asyncDoLogin = (data: any) => async (dispatch: any) => {
+export const asyncDoLogin = (loginCaller: () => Promise<LoginResponse>, profileCaller: () => Promise<User>) => async (dispatch: any) => {
     dispatch(showLoading());
     try {
-        const login = await endPoints.Login(data);
-        dispatch(doLogin(login.data.data));
-        const profile = await endPoints.Me();
-        dispatch(getProfile(profile.data.data?.user));
+        dispatch(doLogin(await loginCaller()));
+        dispatch(setProfile(await profileCaller()));
     } catch (e) {}
     dispatch(hideLoading());
 };
-
-export { ActionType, asyncDoLogin, asyncDoRegister, asyncGetProfile, asyncGetUsers, doLogin, doRegister, doLogout };

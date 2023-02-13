@@ -3,6 +3,7 @@ import ThreadHeader from "components/thread/header";
 import htmlParser from "html-react-parser";
 import { Comment as CommentType, Thread } from "models";
 import { useDispatch } from "react-redux";
+import endPoints from "service/end-points";
 import { asyncDisLikeComment, asyncLikeComment } from "states/votes/action";
 
 type Props = {
@@ -13,12 +14,18 @@ type Props = {
 function Comment({ comment, thread }: Props) {
     const dispatch = useDispatch();
 
+    const upvote = async () => {
+        return (await endPoints.UpVoteComment({ thread_id: thread?.id, comment_id: comment?.id })).data.data;
+    };
+
+    const downvote = async () => (await endPoints.DownVoteComment({ thread_id: thread?.id, comment_id: comment?.id })).data.data;
+
     const onLikeHandler = () => {
-        dispatch(asyncLikeComment(thread, comment) as any);
+        dispatch(asyncLikeComment(upvote, comment) as any);
     };
 
     const onDisLikeHandler = () => {
-        dispatch(asyncDisLikeComment(thread, comment) as any);
+        dispatch(asyncDisLikeComment(downvote, comment) as any);
     };
 
     return (

@@ -3,7 +3,7 @@ import LoadingBar from "react-redux-loading-bar";
 import { Thread } from "models";
 import { useState, ReactNode } from "react";
 import htmlParser from "html-react-parser";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ReducerType } from "states";
 import { SelectorUser } from "states/users/reducer";
 import dayjs from "dayjs";
@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 import { SEARCH } from "utils/routes";
 import Input from "components/form/input";
 import { MODAL_COMMENT } from "states/comments/action";
+import endPoints from "service/end-points";
+import { asyncGetDetailThread } from "states/threads/action";
 
 export type CommentModalChildren = {
     open: boolean;
@@ -25,6 +27,7 @@ type Props = {
 };
 
 function CommentModal({ children, thread, onSubmitHandler }: Props) {
+    const dispatch = useDispatch();
     const user = useSelector<ReducerType, SelectorUser>((state) => state.user);
     const [open, setOpen] = useState(false);
 
@@ -44,6 +47,8 @@ function CommentModal({ children, thread, onSubmitHandler }: Props) {
         closeHandler,
     };
 
+    const getDetailThread = async () => (await endPoints.DetailThread({ thread_id: thread?.id })).data.data.detailThread;
+
     const onSubmit = (e: any) => {
         e.preventDefault();
         const comments = e.target.querySelector("#comments").innerHTML;
@@ -51,6 +56,7 @@ function CommentModal({ children, thread, onSubmitHandler }: Props) {
         onSubmitHandler(comments, () => {
             closeHandler();
             e.target.querySelector("#comments").innerHTML = "";
+            dispatch(asyncGetDetailThread(getDetailThread) as any);
         });
     };
 
