@@ -3,8 +3,13 @@ import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
 import Tabs from "./index";
 
+/**
+ * - tabs component
+ *      - should show and change tab when click tab
+ */
+
 describe("tabs component", () => {
-    it("should render right when click tab", async () => {
+    it("should show and change tab when click tab", async () => {
         const onChangeActive = vi.fn((act) => {
             rerender(
                 <Tabs

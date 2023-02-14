@@ -18,6 +18,11 @@ const thread = {
     totalComments: 0,
 };
 
+/**
+ * - modal comment
+ *      - should call onsubmithandler when reply click
+ */
+
 describe("modal comment", () => {
     it("should call onsubmithandler when reply click", async () => {
         const onSubmitHandler = vi.fn();

@@ -29,6 +29,13 @@ const comment = {
     downVotesBy: [],
 };
 
+/**
+ * - commentsReducer function
+ *      - should return the initial state when given by unknown action
+ *      - should dispatch action correctly when create comment success (thunk)
+ *      - should dispatch action correctly when create comment fail (thunk)
+ */
+
 describe("commentsReducer function", () => {
     it("should return the initial state when given by unknown action", () => {
         const initialState = {};

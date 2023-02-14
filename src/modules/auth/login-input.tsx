@@ -17,7 +17,7 @@ function LoginInput({ onSubmit }: Props) {
                 <Input.Password size="large" placeholder="Password" />
             </Form.Item>
             <div className="w-full flex items-center justify-between">
-                <Button type="primary" htmlType="submit" name="login">
+                <Button id="login-btn" type="primary" htmlType="submit" name="login">
                     Login
                 </Button>
                 <Link to={SIGN_UP}>Sign up</Link>

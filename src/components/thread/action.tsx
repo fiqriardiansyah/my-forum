@@ -85,6 +85,8 @@ function ThreadAction({
                 <div className={`w-[300px] flex items-center justify-between mt-2 ${className}`} {...rest}>
                     {like && (
                         <ActionButton
+                            id="like-button"
+                            className={`like-button ${alreadyLike ? "active" : ""}`}
                             variantActive={alreadyLike ? "like" : "comment"}
                             variant="like"
                             total={upVoteTotal}
@@ -94,6 +96,8 @@ function ThreadAction({
                     )}
                     {dislike && (
                         <ActionButton
+                            id="dislike-button"
+                            className={`dislike-button ${alreadyDisLike ? "active" : ""}`}
                             variant="dislike"
                             variantActive={alreadyDisLike ? "dislike" : "comment"}
                             total={downVoteTotal}
@@ -105,6 +109,7 @@ function ThreadAction({
                         <CommentModal thread={thread} onSubmitHandler={onSubmitComment}>
                             {(comment) => (
                                 <ActionButton
+                                    id="comment-button"
                                     variant="comment"
                                     total={thread?.totalComments || thread?.comments?.length}
                                     Icon={BiComment}

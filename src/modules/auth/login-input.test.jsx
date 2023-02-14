@@ -4,6 +4,11 @@ import { vi } from "vitest";
 import LoginInput from "./login-input";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+/**
+ * - login input component
+ *      - should call onsubmit function when user click button login
+ */
+
 describe("login input component", () => {
     it("should call onsubmit function when user click button login", async () => {
         const onSubmit = vi.fn();

@@ -11,6 +11,11 @@ const newThread = {
     category: "testing",
 };
 
+/**
+ * - speak component
+ *      - should return create thread data when click button speak
+ */
+
 describe("speak component", () => {
     it("should return create thread data when click button speak", async () => {
         const onSpeakHandler = vi.fn();

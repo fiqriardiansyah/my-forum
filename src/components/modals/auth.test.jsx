@@ -3,8 +3,13 @@ import userEvent from "@testing-library/user-event";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthModal from "./auth";
 
+/**
+ * - modal auth
+ *      - should show right content based on type (like, dislike, comment) when click
+ */
+
 describe("modal auth", () => {
-    it("should show right content", async () => {
+    it("should show right content based on type (like, dislike, comment) when click", async () => {
         const children = (auth) => (
             <div>
                 <button onClick={() => auth.openWithContentHandler("like")}>like</button>

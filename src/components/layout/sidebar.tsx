@@ -22,7 +22,7 @@ function Sidebar() {
 
     const content = (
         <div className="py-2">
-            <button onClick={logoutHandler} className="m-0 font-semibold text-lg bg-transparent border-none cursor-pointer">
+            <button id="logout-button" onClick={logoutHandler} className="m-0 font-semibold text-lg bg-transparent border-none cursor-pointer">
                 Log out {user?.email}
             </button>
         </div>
@@ -61,7 +61,10 @@ function Sidebar() {
             {user?.id && (
                 <Popover content={content} trigger={["click"]}>
                     {user?.id ? (
-                        <button className="flex items-center bg-transparent w-full p-2 rounded-full border-none cursor-pointer hover:bg-gray-200 duration-300 justify-between">
+                        <button
+                            id="profile-button"
+                            className="flex items-center bg-transparent w-full p-2 rounded-full border-none cursor-pointer hover:bg-gray-200 duration-300 justify-between"
+                        >
                             <div className="flex items-center">
                                 <img src={user?.avatar} className="w-10 h-10 rounded-full object-cover" alt="" />
                                 <p className="m-0 text-left mx-3">

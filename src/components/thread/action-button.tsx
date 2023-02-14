@@ -19,7 +19,7 @@ function ActionButton({ total = 0, Icon, variant, variantActive, className, ...r
         "text-zinc-400": variantActive === "dislike",
     });
 
-    const textClass = clsx("mt-1 duration-200", {
+    const textClass = clsx("mt-1 duration-200 total", {
         "group-hover:text-pink-400": variant === "like",
         "group-hover:text-zinc-400": variant === "dislike",
         "group-hover:text-blue-400": variant === "comment",

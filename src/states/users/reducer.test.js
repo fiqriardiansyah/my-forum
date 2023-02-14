@@ -24,6 +24,19 @@ const user = {
 
 const token = "just-random-token";
 
+/**
+ * - userReducer function
+ *      - should return the initial state when given by unknown action
+ *      - set user to store when register
+ *      - set token when login
+ *      - set users to store
+ *      - set profile/user to store
+ *      - should dispatch action correctly when get users (thunk)
+ *      - should dispatch action correctly when get profile (thunk)
+ *      - should dispatch action correctly when register (thunk)
+ *      - should dispatch action correctly when login (thunk)
+ */
+
 describe("userReducer function", () => {
     let initialState;
 

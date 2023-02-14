@@ -66,6 +66,21 @@ const detailThread = {
     ],
 };
 
+/**
+ * - threadsReducer function
+ *      - should return the initial state when given by unknown action
+ *      - thread must be null when clean detail thread
+ *      - increment total comment and decrement when fail
+ *      - upvote and downvote thread when user in homepage
+ *      - upvote and downvote thread when user in detail page
+ *      - set detail thread to store
+ *      - set threads to store
+ *      - upvote and downvote comment
+ *      - should dispatch action correctly when detail thread fetching success (thunk)
+ *      - should dispatch action correctly when threads fetching success (thunk)
+ *      - should dispatch action correctly when create thread success (thunk)
+ */
+
 describe("threadsReducer function", () => {
     let initialState;
 

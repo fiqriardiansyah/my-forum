@@ -44,6 +44,17 @@ const comment = {
     downVotesBy: [],
 };
 
+/**
+ * - threadsReducer function
+ *      - should return the initial state when given by unknown action
+ *      - should dispatch action correctly when upvote thread success then fail (thunk)
+ *      - should dispatch action correctly when downvote thread success then fail (thunk)
+ *      - should dispatch action correctly when upvote thread detail success then fail (thunk)
+ *      - should dispatch action correctly when downvote thread detail success then fail (thunk)
+ *      - should dispatch action correctly when upvote comment success then fail (thunk)
+ *      - should dispatch action correctly when downvote comment success then fail (thunk)
+ */
+
 describe("voteReducer function", () => {
     let initialState;
 

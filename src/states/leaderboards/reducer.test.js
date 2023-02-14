@@ -4,6 +4,13 @@ import { expect, vi } from "vitest";
 import { hideLoading, showLoading } from "react-redux-loading-bar";
 import axios from "axios";
 
+/**
+ * - leaderboardsReducer function
+ *      - should return the initial state when given by unknown action
+ *      - should return all leaderboard when set
+ *      - should dispatch action correctly when data fetching success (thunk)
+ */
+
 describe("leaderboardsReducer function", () => {
     let initialState;
     let leaderboard;

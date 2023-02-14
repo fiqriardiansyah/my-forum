@@ -4,6 +4,11 @@ import { vi } from "vitest";
 import RegisterInput from "./register-input";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+/**
+ * - register input component
+ *      - should call onsubmit function when user click button register
+ */
+
 describe("register input component", () => {
     it("should call onsubmit function when user click button register", async () => {
         const onSubmit = vi.fn();

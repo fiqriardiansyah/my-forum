@@ -39,8 +39,9 @@ const Thread = ({ thread }: Props) => {
 
     return (
         <>
-            <div className="w-full p-3 cursor-pointer hover:bg-gray-50 duration-200 border-bottom">
+            <div className="w-full p-3 cursor-pointer hover:bg-gray-50 duration-200 border-bottom thread-card">
                 <ThreadHeader
+                    className="thread-header"
                     onClick={onCLickHandler}
                     isLoading={isLoading}
                     time={thread?.createdAt}
