@@ -1,5 +1,5 @@
 import { hideLoading, showLoading } from "react-redux-loading-bar";
-import { asyncGetDetailThread, failComment, successComment } from "states/threads/action";
+import { failComment, successComment } from "states/threads/action";
 
 export default {};
 export const ActionType = {

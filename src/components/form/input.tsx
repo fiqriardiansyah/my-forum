@@ -1,8 +1,8 @@
 import { HTMLAttributes, useEffect, useRef } from "react";
 
 type Props = HTMLAttributes<HTMLDivElement> & {
-    id: string;
-    placeholder: string;
+    id?: string;
+    placeholder?: string;
     defaultValue?: string;
 };
 

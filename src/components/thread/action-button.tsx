@@ -11,7 +11,7 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 function ActionButton({ total = 0, Icon, variant, variantActive, className, ...rest }: Props) {
-    const iconClass = clsx("p-2 mr-1 w-9 h-9 duration-200 rounded-full ", {
+    const iconClass = clsx("p-2 mr-1 !w-9 !h-9 duration-200 rounded-full ", {
         "group-hover:bg-pink-100 group-hover:text-pink-400": variant === "like",
         "group-hover:bg-zinc-100 group-hover:text-zinc-400": variant === "dislike",
         "group-hover:bg-blue-100 group-hover:text-blue-400": variant === "comment",

@@ -10,9 +10,9 @@ import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { SEARCH } from "utils/routes";
 import Input from "components/form/input";
-import { MODAL_COMMENT } from "states/comments/action";
 import endPoints from "service/end-points";
 import { asyncGetDetailThread } from "states/threads/action";
+import { MODAL_COMMENT } from "states/comments/action";
 
 export type CommentModalChildren = {
     open: boolean;
@@ -67,7 +67,7 @@ function CommentModal({ children, thread, onSubmitHandler }: Props) {
                 <form onSubmit={onSubmit} className="p-6">
                     <div className="w-full flex gap-4 mt-5 overflow-hidden">
                         <div className="flex flex-col items-center h-full">
-                            <img src={ownerThread?.avatar} className="w-12 h-12 rounded-full object-cover" alt="" />
+                            <img src={ownerThread?.avatar} className="w-12 h-12 rounded-full object-cover bg-gray-300" alt="" />
                             <div className="h-full bg-gray-300 min-h-[70px] mt-2" style={{ width: "2px" }}></div>
                         </div>
                         <div className="flex flex-col gap-1 w-full">
@@ -89,7 +89,7 @@ function CommentModal({ children, thread, onSubmitHandler }: Props) {
                         </div>
                     </div>
                     <div className="w-full flex gap-4 mt-3">
-                        <img src={user?.avatar} className="w-12 h-12 rounded-full object-cover" alt="" />
+                        <img src={user?.avatar} className="w-12 h-12 rounded-full object-cover bg-gray-300" alt="" />
                         <Input id="comments" placeholder="Speak your reply" />
                     </div>
                     <div className="w-full flex items-center justify-end mt-4">
