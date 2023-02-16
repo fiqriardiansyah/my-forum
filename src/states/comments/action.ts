@@ -15,7 +15,7 @@ export const createComment = () => ({
 export const asyncCreateComment =
     ({ caller, threadId, content, callback }: { caller: () => Promise<any>; threadId: any; content: string; callback: () => void }) =>
     async (dispatch: any) => {
-        // dispatch(showLoading(MODAL_COMMENT));
+        dispatch(showLoading(MODAL_COMMENT));
         dispatch(createComment());
         dispatch(successComment(threadId, content));
         try {
